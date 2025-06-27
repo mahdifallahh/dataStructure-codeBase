@@ -4,12 +4,14 @@
 const mongoose = require('mongoose');
 
 const UserSchema = new mongoose.Schema({
-  name: { type: String, required: true },
+  // حذف index: true از فیلدهای email و username برای جلوگیری از اخطار ایندکس تکراری
+  name: { type: String, required: false },
   email: { type: String, required: true, unique: true, index: true },
   password: { type: String, required: true },
   profile: { type: mongoose.Schema.Types.ObjectId, ref: 'Profile' },
+  username: { type: String, required: true, unique: true, index: true },
 });
 
-UserSchema.index({ email: 1 });
+//the user indexed in order model for optimization
 
 module.exports = mongoose.model('User', UserSchema);
